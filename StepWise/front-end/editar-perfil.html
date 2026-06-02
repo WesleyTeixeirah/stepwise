@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Editar Perfil - StepWise</title>
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <style>
+      body {
+        background: linear-gradient(135deg, #1e3a8a, #0f172a);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <img src="assets/img/stepwise-logo.png" alt="" />
+        </a>
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="profile.html" class="active">Perfil</a></li>
+            <li><a href="profile.html#task">Tarefas</a></li>
+            <li><a href="profile.html#history">Histórico</a></li>
+            <li><a href="contact.html">Contato</a></li>
+            <li><a href="#" onclick="logout()">Sair</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container py-5" style="margin-top: 120px">
+      <div class="card shadow p-4 mb-4">
+        <h2 class="text-center mb-4">Editar Perfil 👤</h2>
+
+        < class="perfil-form">
+          <div class="mb-3 input-group-custom">
+            <label>Nome</label>
+            <input
+              type="text"
+              id="nomeInput"
+              class="form-control input-custom"
+              placeholder="Seu nome"
+            />
+          </div>
+
+          <div class="mb-3 input-group-custom">
+            <label>Email</label>
+            <input
+              type="email"
+              id="emailInput"
+              class="form-control input-custom"
+              placeholder="Seu email"
+              disabled
+            />
+          </div>
+
+          <div class="mb-3 input-group-custom">
+            <label>Senha Atual</label>
+            <div class="senha-wrapper">
+              <input
+                type="password"
+                id="senhaAtual"
+                class="form-control input-custom"
+                placeholder="Digite sua senha atual"
+              />
+              <span class="eye" onclick="toggleSenhaAtual()">👁️</span>
+            </div>
+          </div>
+
+          <div class="mb-3 input-group-custom">
+            <label>Nova Senha</label>
+            <div class="senha-wrapper">
+              <input
+                type="password"
+                id="novaSenha"
+                class="form-control input-custom"
+                placeholder="Digite a nova senha"
+              />
+              <span class="eye" onclick="toggleNovaSenha()">👁️</span>
+            </div>
+          </div>
+
+          <div class="mb-3 input-group-custom">
+            <label>Confirmar Nova Senha</label>
+            <div class="senha-wrapper">
+              <input
+                type="password"
+                id="confirmarNovaSenha"
+                class="form-control input-custom"
+                placeholder="Confirme a nova senha"
+              />
+              <span class="eye" onclick="toggleConfirmarNovaSenha()">👁️</span>
+            </div>
+          </div>
+
+          <button class="btn btn-warning btn-salvar mt-1" id="btnAlterarSenha">
+            Alterar Senha
+          </button>
+
+          <p
+            id="mensagem-senha-sucesso"
+            style="display: none; color: #10b981; margin-top: 10px"
+          >
+            Senha alterada com sucesso ✅
+          </p>
+
+          <p
+            id="mensagem-senha-erro"
+            style="display: none; color: #ef4444; margin-top: 10px"
+          ></p>
+
+          <button class="btn btn-primary btn-salvar" id="btnSalvar">
+            Salvar Alterações
+          </button>
+
+          <a href="profile.html" class="btn btn-secondary btn-salvar ms-2"
+            >Cancelar</a
+          >
+
+          <p
+            id="mensagem-sucesso"
+            style="display: none; color: #10b981; margin-top: 10px"
+          >
+            Dados salvos com sucesso ✅
+          </p>
+
+          <p
+            id="mensagem-erro"
+            style="display: none; color: #ef4444; margin-top: 10px"
+          ></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/auth.js"></script>
+
+    <script>
+      const API_URL = "http://localhost:5041";
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        // Carrega dados do usuário da API
+        try {
+          const response = await fetch(`${API_URL}/api/User/me`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+
+          if (response.ok) {
+            const user = await response.json();
+            document.getElementById("nomeInput").value = user.nome || "";
+            document.getElementById("emailInput").value = user.email || "";
+          }
+        } catch (error) {
+          console.error("Erro ao carregar perfil:", error);
+        }
+
+        document
+          .getElementById("btnSalvar")
+          .addEventListener("click", async function () {
+            const nome = document.getElementById("nomeInput").value.trim();
+            const sucesso = document.getElementById("mensagem-sucesso");
+            const erro = document.getElementById("mensagem-erro");
+
+            sucesso.style.display = "none";
+            erro.style.display = "none";
+
+            if (!nome) {
+              erro.textContent = "O nome não pode ser vazio.";
+              erro.style.display = "block";
+              return;
+            }
+
+            try {
+              const response = await fetch(`${API_URL}/api/User/me`, {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ nome }),
+              });
+
+              if (!response.ok) throw new Error("Erro ao salvar.");
+
+              const data = await response.json();
+
+              // Atualiza localStorage
+              const usuario = JSON.parse(localStorage.getItem("usuario"));
+              usuario.nome = data.nome;
+              localStorage.setItem("usuario", JSON.stringify(usuario));
+
+              sucesso.style.display = "block";
+              setTimeout(() => {
+                window.location.href = "profile.html";
+              }, 1500);
+            } catch (error) {
+              erro.textContent = "Erro ao salvar alterações.";
+              erro.style.display = "block";
+            }
+          });
+      });
+
+      function toggleSenhaAtual() {
+        const input = document.getElementById("senhaAtual");
+        input.type = input.type === "password" ? "text" : "password";
+      }
+
+      function toggleNovaSenha() {
+        const input = document.getElementById("novaSenha");
+        input.type = input.type === "password" ? "text" : "password";
+      }
+
+      function toggleConfirmarNovaSenha() {
+        const input = document.getElementById("confirmarNovaSenha");
+        input.type = input.type === "password" ? "text" : "password";
+      }
+
+      document
+        .getElementById("btnAlterarSenha")
+        .addEventListener("click", async function () {
+          const senhaAtual = document.getElementById("senhaAtual").value;
+          const novaSenha = document.getElementById("novaSenha").value;
+          const confirmar = document.getElementById("confirmarNovaSenha").value;
+          const sucesso = document.getElementById("mensagem-senha-sucesso");
+          const erro = document.getElementById("mensagem-senha-erro");
+
+          sucesso.style.display = "none";
+          erro.style.display = "none";
+
+          if (!senhaAtual || !novaSenha) {
+            erro.textContent = "Preencha todos os campos de senha.";
+            erro.style.display = "block";
+            return;
+          }
+
+          if (novaSenha !== confirmar) {
+            erro.textContent = "As senhas não coincidem.";
+            erro.style.display = "block";
+            return;
+          }
+
+          try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`${API_URL}/api/User/me/password`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                senhaAtual: senhaAtual,
+                novaSenha: novaSenha,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+              erro.textContent = data.message || "Erro ao alterar senha.";
+              erro.style.display = "block";
+              return;
+            }
+
+            sucesso.style.display = "block";
+            document.getElementById("senhaAtual").value = "";
+            document.getElementById("novaSenha").value = "";
+            document.getElementById("confirmarNovaSenha").value = "";
+          } catch (error) {
+            erro.textContent = "Erro ao conectar com o servidor.";
+            erro.style.display = "block";
+          }
+        });
+    </script>
+  </body>
+</html>

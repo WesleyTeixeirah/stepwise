@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login - StepWise</title>
+
+    <!-- Bootstrap + Icons (IMPORTANTE) -->
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Seu CSS -->
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+
+  <body class="login-body">
+    <!-- ✅ NAVBAR IGUAL DA HOME -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div
+        class="container-fluid container-xl position-relative d-flex align-items-center"
+      >
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <img src="assets/img/stepwise-logo.png" alt="" />
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+            <li><a href="#">Tarefas</a></li>
+            <li><a href="#">Histórico</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="login.html" class="active">Entrar</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ✅ CONTEÚDO LOGIN -->
+    <div class="login-container">
+      <div class="login-box">
+        <h1>StepWise</h1>
+        <p>Organize seus projetos com clareza ✨</p>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="emailLogin"
+              placeholder="Digite seu email"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Senha</label>
+            <div class="senha-wrapper">
+              <input
+                type="password"
+                id="senhaLogin"
+                placeholder="Digite sua senha"
+                required
+              />
+              <span onclick="toggleSenhaLogin()" class="eye">👁️</span>
+            </div>
+          </div>
+
+          <div class="options">
+            <label> <input type="checkbox" /> Lembrar de mim </label>
+            <a href="password-recover.html">Esqueci minha senha</a>
+          </div>
+
+          <button type="submit">Entrar</button>
+
+          <p class="register">
+            Não tem conta? <a href="cadastro.html">Criar conta</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+      function toggleSenhaLogin() {
+        const input = document.getElementById("senhaLogin");
+        input.type = input.type === "password" ? "text" : "password";
+      }
+    </script>
+
+    <script src="assets/js/login.js"></script>
+
+  </body>
+</html>

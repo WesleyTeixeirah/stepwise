@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Tarefa</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/stepwise-icon.png" rel="icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <link href="assets/css/main.css" rel="stylesheet">
+
+</head>
+
+<body class="tasks-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/stepwise-logo.png" alt="">
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="profile.html">Perfil</a></li>
+          <li><a href="profile.html#task" class="active">Tarefas</a></li>
+          <li><a href="profile.html#history">Histórico</a></li>
+          <li><a href="contact.html">Contato</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title light-background">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Tarefas</li>
+          </ol>
+        </nav>
+        <h1>Tarefa</h1>
+      </div>
+    </div>
+    <section id="tasks" class="tasks section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row">
+
+          <div class="col-lg-4 order-lg-2">
+
+            <div class="sticky-sidebar">
+
+              <div class="service-card" data-aos="fade-left" data-aos-delay="200">
+                <div class="card-body">
+                  <ul class="quick-info">
+                    <li>
+                      <i class="bi bi-clock"></i>
+                      <span>4-6 semanas</span>
+                      <a href="#" class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#modalEditarTarefaPrincipal"></a>
+                    </li>
+                  </ul>
+                  <div class="cta-buttons">
+                    <a href="#" class="btn-danger" id="btnAbrirModalExcluir">Excluir Tarefa</a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 order-lg-1">
+
+            <div class="service-overview" data-aos="fade-up" data-aos-delay="200">
+              <div class="overview-header">
+                <h2>Cregando...</h2>
+                <a href="#" class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#modalEditarTarefaPrincipal"></a>
+              </div>
+              <p class="lead-text">Descrição da tarefa.</p>
+              <a href="#" class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#modalEditarTarefaPrincipal"></a>
+            </div>
+
+            <div class="tech-category">
+              <h5>Tags</h5>
+              <div class="tech-tags" id="container-tags">
+                <span class="selectable-tag">Artes</span>
+                <span class="selectable-tag">Estudos</span>
+                <span class="selectable-tag">Pessoal</span>
+                <span class="selectable-tag">Trabalho</span>
+                <span class="selectable-tag">Outros</span>
+              </div>
+            </div>
+
+            <div class="tech-category mt-5">
+              <h5>Nível de complexidade da tarefa</h5>
+              <div class="tech-tags" id="container-complexidade">
+                <span class="complexity-tag" data-level="1">1</span>
+                <span class="complexity-tag" data-level="2">2</span>
+                <span class="complexity-tag" data-level="3">3</span>
+                <span class="complexity-tag" data-level="4">4</span>
+                <span class="complexity-tag" data-level="5">5</span>
+              </div>
+            </div>
+
+            <div class="tech-category mt-4">
+              <h5>Prioridade da Tarefa</h5>
+              <div class="tech-tags" id="container-prioridade">
+                <span class="priority-tag" data-priority="Baixa">Baixa</span>
+                <span class="priority-tag" data-priority="Média">Média</span>
+                <span class="priority-tag" data-priority="Alta">Alta</span>
+              </div>
+            </div>
+
+            <div class="workflow-section" data-aos="fade-up" data-aos-delay="500">
+              <div class="workflow-section mt-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h3 class="section-heading mb-0">Etapas</h3>
+                  <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalNovaEtapa">
+                    <i class="bi bi-plus-circle"></i> Adicionar Etapa
+                  </button>
+                </div>
+                <div class="timeline"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <div class="modal fade" id="modalEditarTarefaPrincipal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Detalhes da Tarefa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Título</label>
+            <input type="text" id="editTarefaTitulo" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descrição</label>
+            <textarea id="editTarefaDescricao" class="form-control" rows="4"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Prazo</label>
+            <input type="text" id="editTarefaPrazo" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label class="form-label d-block">Nível de Complexidade</label>
+            <div class="btn-group w-100" role="group" id="modalComplexidadeGroup">
+              <input type="radio" class="btn-check" name="complexity" id="comp1" value="1">
+              <label class="btn btn-outline" style="color: #67f573;" for="comp1">1</label>
+              <input type="radio" class="btn-check" name="complexity" id="comp2" value="2">
+              <label class="btn btn-outline" style="color: #f9fc4a;" for="comp2">2</label>
+              <input type="radio" class="btn-check" name="complexity" id="comp3" value="3">
+              <label class="btn btn-outline" style="color: #fca23b;" for="comp3">3</label>
+              <input type="radio" class="btn-check" name="complexity" id="comp4" value="4">
+              <label class="btn btn-outline" style="color: #fa4343;" for="comp4">4</label>
+              <input type="radio" class="btn-check" name="complexity" id="comp5" value="5">
+              <label class="btn btn-outline" style="color: #bb0215;" for="comp5">5</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label d-block fw-bold">Prioridade</label>
+            <div class="btn-group w-100" role="group">
+              <input type="radio" class="btn-check" name="priority" id="pLow" value="Baixa">
+              <label class="btn btn-outline-success btn-sm" for="pLow">Baixa</label>
+              <input type="radio" class="btn-check" name="priority" id="pMed" value="Média">
+              <label class="btn btn-outline-warning btn-sm" for="pMed">Média</label>
+              <input type="radio" class="btn-check" name="priority" id="pHigh" value="Alta">
+              <label class="btn btn-outline-danger btn-sm" for="pHigh">Alta</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label d-block">Selecionar Tags</label>
+            <div id="modalTagsContainer" class="d-flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="btnSalvarTarefaPrincipal" class="btn btn-primary">Salvar Alterações</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalEditarEtapa" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Etapa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3"><label class="form-label" id="labelTitulo">Título</label>
+            <input type="text" id="editTitulo" class="form-control">
+          </div>
+          <div class="mb-3" id="grupoDescricao">
+            <label class="form-label">Descrição</label>
+            <textarea id="editDescricao" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" id="salvarEdicao">Salvar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalExcluirTarefa" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Excluir Tarefa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja excluir esta tarefa?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-danger" id="confirmarExclusao">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalNovaEtapa" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nova Etapa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Título da Etapa</label>
+            <input type="text" id="modalTituloEtapa" class="form-control" placeholder="Ex: Formatação de células">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Descrição</label>
+            <textarea id="modalDescricaoEtapa" class="form-control" rows="3" placeholder="O que deve ser feito?"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" id="salvarNovaEtapa" class="btn btn-primary">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <div id="preloader"></div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/tasks.js"></script>
+
+</body>
+
+</html>

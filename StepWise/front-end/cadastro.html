@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Cadastro - StepWise</title>
+
+    <!-- 🔥 CSS IGUAL DA HOME -->
+    <link
+      href="assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="assets/css/main.css" rel="stylesheet" />
+  </head>
+
+  <body class="login-body cadastro-page">
+    <!-- 🔥 NAVBAR -->
+    <header id="header" class="header d-flex align-items-center fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center">
+        <a href="index.html" class="logo d-flex align-items-center me-auto">
+          <img src="assets/img/stepwise-logo.png" alt="" />
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="perfil.html">Perfil</a></li>
+            <li><a href="#">Tarefas</a></li>
+            <li><a href="#">Histórico</a></li>
+            <li><a href="#">Contato</a></li>
+            <li><a href="login.html" class="active">Entrar</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 🔥 CONTEÚDO -->
+    <div class="login-container">
+      <div class="login-box">
+        <h1>StepWise</h1>
+        <p>Crie sua conta e comece a se organizar 🚀</p>
+
+        <form id="registerForm">
+          <div class="input-group">
+            <label>Nome</label>
+            <input
+              type="text"
+              id="nome"
+              placeholder="Digite seu nome"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Digite seu email"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Senha</label>
+            <div class="senha-wrapper">
+              <input
+                type="password"
+                id="senhaCadastro"
+                placeholder="Crie uma senha"
+                required
+              />
+              <span onclick="toggleSenhaCadastro()" class="eye">👁️</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Confirmar senha</label>
+            <div class="senha-wrapper">
+              <input
+                type="password"
+                id="confirmarSenha"
+                placeholder="Confirme sua senha"
+                required
+              />
+              <span onclick="toggleConfirmarSenha()" class="eye">👁️</span>
+            </div>
+          </div>
+
+          <button type="submit">Criar conta</button>
+
+          <p
+            id="mensagem-sucesso"
+            style="display: none; color: #10b981; margin-top: 10px"
+          >
+            Conta criada com sucesso ✅
+          </p>
+
+          <p class="register">Já tem conta? <a href="login.html">Entrar</a></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- 🔥 JS -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+      function toggleSenhaCadastro() {
+        const input = document.getElementById("senhaCadastro");
+        input.type = input.type === "password" ? "text" : "password";
+      }
+      function toggleConfirmarSenha() {
+        const input = document.getElementById("confirmarSenha");
+        input.type = input.type === "password" ? "text" : "password";
+      }
+    </script>
+    <script src="assets/js/register.js"></script>
+  </body>
+</html>
