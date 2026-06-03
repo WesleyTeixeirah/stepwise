@@ -1,38 +1,96 @@
-using Microsoft.AspNetCore.Mvc;
 using StepWise.API.DTOs;
-using StepWise.API.Services;
+using StepWise.API.Models;
+using StepWise.API.Repositories;
+using BCrypt.Net;
 
-namespace StepWise.API.Controllers
+namespace StepWise.API.Services
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthService : IAuthService
     {
-        private readonly IAuthService _authService;
+        private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _config;
 
-        public AuthController(IAuthService authService)
+        public AuthService(IUserRepository userRepository, IConfiguration config)
         {
-            _authService = authService;
+            _userRepository = userRepository ?? throw new Exception("UserRepository não injetado");
+            _config = config ?? throw new Exception("Configuration não injetado");
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDTO dto)
+        public async Task<AuthResponseDTO?> RegisterAsync(RegisterDTO dto)
         {
-            var result = await _authService.RegisterAsync(dto);
-            if (result == null)
-                return BadRequest(new { message = "Email já cadastrado." });
+            try
+            {
+                if (dto == null)
+                    return null;
 
-            return Ok(result);
+                var userExists = await _userRepository.GetByEmailAsync(dto.Email);
+                if (userExists != null)
+                    return null;
+
+                var user = new User
+                {
+                    Nome = dto.Nome,
+                    Email = dto.Email,
+                    SenhaHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+                    CriadoEm = DateTime.UtcNow
+                };
+
+                await _userRepository.CreateAsync(user);
+
+                var token = GenerateToken(user);
+
+                return new AuthResponseDTO
+                {
+                    Token = token,
+                    Nome = user.Nome,
+                    Email = user.Email
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("REGISTER ERROR: " + ex.Message);
+                return null;
+            }
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO dto)
+        public async Task<AuthResponseDTO?> LoginAsync(LoginDTO dto)
         {
-            var result = await _authService.LoginAsync(dto);
-            if (result == null)
-                return Unauthorized(new { message = "Email ou senha inválidos." });
+            try
+            {
+                if (dto == null)
+                    return null;
 
-            return Ok(result);
+                var user = await _userRepository.GetByEmailAsync(dto.Email);
+                if (user == null)
+                    return null;
+
+                if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.SenhaHash))
+                    return null;
+
+                var token = GenerateToken(user);
+
+                return new AuthResponseDTO
+                {
+                    Token = token,
+                    Nome = user.Nome,
+                    Email = user.Email
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("LOGIN ERROR: " + ex.Message);
+                return null;
+            }
+        }
+
+        private string GenerateToken(User user)
+        {
+            var secret = _config["Jwt:Secret"];
+
+            if (string.IsNullOrEmpty(secret))
+                throw new Exception("JWT Secret não configurado no appsettings");
+
+            return "TOKEN_OK"; // substitui pelo seu JWT real
         }
     }
 }
