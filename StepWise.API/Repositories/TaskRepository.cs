@@ -12,8 +12,12 @@ namespace StepWise.API.Repositories
 
         public TaskRepository(IOptions<MongoDbSettings> settings)
         {
+            if (settings?.Value == null)
+                throw new Exception("MongoDbSettings não carregado");
+        
             var client = new MongoClient(settings.Value.ConnectionString);
             var database = client.GetDatabase(settings.Value.DatabaseName);
+        
             _tasks = database.GetCollection<TaskItem>("tasks");
         }
 
