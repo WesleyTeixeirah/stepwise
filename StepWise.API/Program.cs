@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -46,7 +46,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // ========================
-// CONFIG MONGO
+// MONGO CONFIG
 // ========================
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("MongoDB"));
@@ -74,7 +74,7 @@ if (string.IsNullOrEmpty(jwtSecret))
 var key = Encoding.UTF8.GetBytes(jwtSecret);
 
 // ========================
-// AUTHENTICATION
+// AUTH
 // ========================
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -97,12 +97,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             },
             OnTokenValidated = context =>
             {
-                Console.WriteLine("JWT OK: token válido");
-                return Task.CompletedTask;
-            },
-            OnMessageReceived = context =>
-            {
-                Console.WriteLine("Authorization: " + context.Request.Headers["Authorization"]);
+                Console.WriteLine("JWT OK");
                 return Task.CompletedTask;
             }
         };
@@ -135,10 +130,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+// ========================
+// PORTA RAILWAY (CORRETO)
+// ========================
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+app.Urls.Add($"http://0.0.0.0:{port}");
 
-var port = Environment.GetEnvironmentVariable("PORT");
-if (!string.IsNullOrEmpty(port))
-{
-    app.Urls.Add($"http://0.0.0.0:{port}");
-}
+// ========================
+// RUN
+// ========================
+app.Run();
