@@ -16,17 +16,17 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       try {
-        const response = await fetch("https://stepwise-api-production.up.railway.app", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nome: nome,
-            email: email,
-            password: senha,
-          }),
-        });
+        const response = await fetch("https://stepwise-api-production.up.railway.app/api/Auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: nome,
+          email: email,
+          password: senha,
+        }),
+      });
 
         const data = await response.json();
 
