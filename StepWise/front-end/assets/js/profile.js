@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5041";
+const API_URL = "https://stepwise-api-production.up.railway.app";
 
 document.addEventListener("DOMContentLoaded", async function () {
   const token = localStorage.getItem("token");
